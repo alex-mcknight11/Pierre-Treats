@@ -8,16 +8,16 @@ namespace Pierre.ViewModels
     
     [Required]
     [EmailAddress]
-    [Display(Name = "Email")]
+    [Display(Name = "Enter Email")]
     public string Email {get;set;}
 
     [Required]
     [DataType(DataType.Password)]
-    [Display(Name = "Password")]
+    [Display(Name = "Enter Password")]
     public string Password {get; set;}
 
     [DataType(DataType.Password)]
-    [Display(Name = "ConfirmPassword")]
+    [Display(Name = "Confirm Your Password")]
     [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
     public string ConfirmPassword{get;set;}
   }
