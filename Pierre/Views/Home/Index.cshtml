@@ -1,0 +1,34 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Pierre.Models;
+@model Pierre.Models.PierreContext;
+
+@if(@Model.Flavor.ToList().Count == 0)
+{
+<h4>There are currently no flavors listed.</h4>
+}
+else
+{
+<h4>Current Flavors:</h4>
+@foreach (Flavor flavor in Model.Flavor.ToList())
+{
+  <li>@Html.ActionLink($"{flavor.Description}", "Details", "Flavor", new {id = flavor.FlavorId})</li>
+}
+}
+
+
+
+@if(@Model.Treats.ToList().Count == 0)
+{
+<h4>There are currently no treats listed.</h4>
+}
+else
+{
+<h4>Current Treats:</h4>
+@foreach (Treat treat in Model.Treats.ToList())
+{
+  <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId})</li>
+}
+}

@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+@model Pierre.Models.Flavor
+<h1>Add a flavor</h1>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Description)
+  @Html.TextBoxFor(model => model.Description)
+  <p>@Html.Label("Flavor Profile")<br>
+    @Html.Label("Savory")
+    @Html.RadioButtonFor(model => model.Type, "Savory")
+    @Html.Label("Sweet")
+    @Html.RadioButtonFor(model => model.Type, "Sweet")
+    @Html.Label("Sour")
+    @Html.RadioButtonFor(model => model.Type, "Sour")
+    @Html.Label("Salty")
+    @Html.RadioButtonFor(model => model.Type, "Salty")
+    </p>
+
+  <input type="submit" value="Add new flavor" />
+}
