@@ -12,11 +12,11 @@ using System.Security.Claims;
 
 namespace Pierre.Controllers
 {
-  public class FlavorController : Controller
+  public class FlavorsController : Controller
   {
     private readonly PierreContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
-    public FlavorController(UserManager<ApplicationUser> userManager, PierreContext db)
+    public FlavorsController(UserManager<ApplicationUser> userManager, PierreContext db)
     {
       _userManager = userManager;
       _db = db;
@@ -24,7 +24,7 @@ namespace Pierre.Controllers
   [Authorize]
     public ActionResult Index()
     {
-      List<Flavor> model = _db.Flavor.ToList();
+      List<Flavor> model = _db.Flavors.ToList();
       return View(model);
     }
     public ActionResult Create()
@@ -38,14 +38,14 @@ namespace Pierre.Controllers
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
       flavor.User = currentUser;
-      _db.Flavor.Add(flavor);
+      _db.Flavors.Add(flavor);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult Details(int id)
     {
-      var thisFlavor = _db.Flavor
+      var thisFlavor = _db.Flavors
           .Include(flavor => flavor.JoinEntities)
           .ThenInclude(join => join.Treat)
           .FirstOrDefault(flavor => flavor.FlavorId == id);
@@ -54,7 +54,7 @@ namespace Pierre.Controllers
     [Authorize]
     public ActionResult Edit(int id)
     {
-      var thisFlavor = _db.Flavor.FirstOrDefault(flavor => flavor.FlavorId == id);
+      var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
 
@@ -71,7 +71,7 @@ namespace Pierre.Controllers
     [Authorize]
     public ActionResult Delete(int id)
     {
-      var thisFlavor = _db.Flavor.FirstOrDefault(flavor => flavor.FlavorId == id);
+      var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
 
@@ -80,8 +80,8 @@ namespace Pierre.Controllers
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
-      var thisFlavor = _db.Flavor.FirstOrDefault(flavor => flavor.FlavorId == id);
-      _db.Flavor.Remove(thisFlavor);
+      var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      _db.Flavors.Remove(thisFlavor);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
@@ -100,7 +100,7 @@ namespace Pierre.Controllers
     [HttpPost]
     public ActionResult Search (string flavorDescription)
     {
-      var thisFlavor = _db.Flavor.Where(flavor => flavor.Description.Contains(flavorDescription)).ToList();
+      var thisFlavor = _db.Flavors.Where(flavor => flavor.Description.Contains(flavorDescription)).ToList();
       if(thisFlavor != null){
           return View(thisFlavor);
       }

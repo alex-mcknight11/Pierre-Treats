@@ -5,16 +5,16 @@
 @using Pierre.Models;
 @model Pierre.Models.PierreContext;
 
-@if(@Model.Flavor.ToList().Count == 0)
+@if(@Model.Flavors.ToList().Count == 0)
 {
 <h4>There are currently no flavors listed.</h4>
 }
 else
 {
 <h4>Current Flavors:</h4>
-@foreach (Flavor flavor in Model.Flavor.ToList())
+@foreach (Flavor flavor in Model.Flavors.ToList())
 {
-  <li>@Html.ActionLink($"{flavor.Description}", "Details", "Flavor", new {id = flavor.FlavorId})</li>
+  <li>@Html.ActionLink($"{flavor.Description}", "Details", "Flavors", new {id = flavor.FlavorId})</li>
 }
 }
 
